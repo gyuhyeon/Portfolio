@@ -63,7 +63,7 @@ router.get('/', function(req, res, next) {
         };
         request(options).then((body) => {
             //console.log(body);
-            if (body.success !== true) {
+            if (body.success != true) {
                 res.json( { success: false, errmsg: "캡챠가 실패하였습니다. 다시 시도해주세요." } );
             }
             else{ // success. go as planned.

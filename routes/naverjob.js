@@ -50,7 +50,7 @@ router.post('/enlist', function(req, res, next) {
     request.post({url:"https://www.google.com/recaptcha/api/siteverify", form:{"secret" : config.captcha, "response" : req.body['g-recaptcha-response']}}, function(error, response, body){
         body = JSON.parse(body);
         // Success will be true or false depending upon captcha validation.
-        if(body.success !== true) {
+        if(body.success != true) {
             return res.json({"response" : "Recaptcha validation failed, please try again."})
         }
         //everything OK, now we add the phone number to the DB.
