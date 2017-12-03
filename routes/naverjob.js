@@ -76,7 +76,7 @@ router.post('/unsubscribe', function(req, res, next) {
     if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
         return res.json({"response" : "Please complete recaptcha."});
     }
-    var regex = /^\d{3}-\d{4}-\d{4}$/;
+    var regex = /^\d{3}[-]?\d{4}[-]?\d{4}$/;
     if(!req.body.phonenumber.match(regex)){
         return res.json({"response" : "Please input a correct phone number. (000-0000-0000)"});
     }
