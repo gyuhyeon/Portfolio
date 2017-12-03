@@ -47,14 +47,14 @@ router.post('/enlist', function(req, res, next) {
     if(!req.body.phonenumber.match(regex)){
         return res.json({"response" : "Please input a correct phone number. (000-0000-0000)"});
     }
-    request.post({url:"https://www.google.com/recaptcha/api/siteverify", form:{"secret" : config.captchasecret, "response" : req.body['g-recaptcha-response']}}, function(error, response, body){
+    request.post({url:"https://www.google.com/recaptcha/api/siteverify", form:{"secret" : config.captcha, "response" : req.body['g-recaptcha-response']}}, function(error, response, body){
         body = JSON.parse(body);
         // Success will be true or false depending upon captcha validation.
         if(body.success !== undefined && !body.success) {
             return res.json({"response" : "Recaptcha validation failed, please try again."})
         }
         //everything OK, now we add the phone number to the DB.
-        connection.query('INSERT INTO `NotifyList`(phonenumber) VALUES("'+req.body.phonenumber+'");', function(error, cursor){
+        connection.query('INSERT INTO `NotifyList`(phonenumber) VALUES(?);',[req.body.phonenumber.replace(/-/g,'')], function(error, cursor){
             if(error==null){
                 twclient.messages.create({
                     body: "Welcome to Naver job opening notification service!"+" / 구독취소:gyuhyeonlee.com",
@@ -87,7 +87,7 @@ router.post('/unsubscribe', function(req, res, next) {
             return res.json({"response" : "Recaptcha validation failed, please try again."})
         }
         //everything OK, now we add the phone number to the DB.
-        connection.query('DELETE FROM `NaverJobs`.`NotifyList` WHERE `phonenumber`="'+req.body.phonenumber+'";', function(error, cursor){
+        connection.query('DELETE FROM `NaverJobs`.`NotifyList` WHERE `phonenumber`=?;',[req.body.phonenumber.replace(/-/g,'')], function(error, cursor){
             if(error==null){
                 if(cursor.affectedRows>0){
                     return res.json({"response" : "Success! Your number has been deleted."});
