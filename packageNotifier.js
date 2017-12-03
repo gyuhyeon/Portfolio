@@ -166,4 +166,4 @@ function PackageNotifier() {
     setInterval(checkUpdate, 30000);
 }
 
-module.exports = PackageNotifier;
+module.exports = PackageNotifier; // we don't really need to do this. call PackageNotifier() below, and "require()" this file where it needs to run in the main code.

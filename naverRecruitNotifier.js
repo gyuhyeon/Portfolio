@@ -165,4 +165,4 @@ function naverRecruitNotifier() {
     setInterval(checkUpdate, 30000);
 }
 
-module.exports = naverRecruitNotifier;
+module.exports = naverRecruitNotifier; // we don't really need to do this. call PackageNotifier() below, and "require()" this file where it needs to run in the main code.

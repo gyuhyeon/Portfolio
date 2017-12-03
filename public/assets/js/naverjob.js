@@ -1,5 +1,5 @@
 function verify(){
-    var regex = /^\d{3}-\d{4}-\d{4}$/; //comment for the inquisitive : you can't get around this one. Server side validation also exists, this is just to provide a slightly faster response to the user :P
+    var regex = /^\d{3}[-]?\d{4}[-]?\d{4}$/; //comment for the inquisitive : you can't get around this one. Server side validation also exists, this is just to provide a slightly faster response to the user :P
     var m = document.getElementsByName("phonenumber")[0].value.match(regex);
     if(m){
         return true;
@@ -27,7 +27,7 @@ $(document).ready(function() {
         // process the form
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'enlist', // the url where we want to POST
+            url         : 'naverjob/enlist', // the url where we want to POST
             data        : formData, // our data object
             dataType    : 'json', // what type of data do we expect back from the server
                         encode          : true
