@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title><%=title%></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+	</head>
+	<body class="landing">
+		<div id="page-wrapper" style="background-color: rgb(202,200,200);">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="/">Gyuhyeon Lee</a> Project showcase</h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li><a href="/delivery">DeliveryTracking</a></li>
+							<li><a href="/naverjob">NaverJobTracker</a></li>
+							<!--
+							<li>
+								<a href="#" class="icon fa-angle-down">Menu</a>
+								<ul>
+									<li><a href="/dashboard">dashboard</a></li>
+								</ul>
+							</li>
+							-->
+							<!-- <li><a href="/login" class="button">Sign In</a></li> -->
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner" class="delivery">
+					<h2>통합배송조회</h2>
+					<p>아래에 송장번호를 입력하세요.</p>				
+					
+				<!--
+					<ul class="actions">
+						<li><a href="#" class="button special">Sign In</a></li>
+						<li><a href="#" class="button">Learn More</a></li>
+					</ul>
+				-->
+				</section>
+
+			<!-- Main -->
+				<section id="main" class="container">
+
+					<section class="box special">
+						<form name="query" id="query">
+							<div class="row uniform 50%">
+								<div class="9u 12u(mobilep)">
+									
+									<select name="companycode" id="companycode" style="display:inline-block;width:25%">
+										<option value="CJ">CJ 택배</option>
+										<option value="KPOST">우체국 택배</option>
+										<!--<option value="LOGEN">로젠 택배</option>-->
+									</select>
+									
+									<input type="text" name="trackingnum" id="trackingnum" style="display:inline-block;width:70%" value="" placeholder="송장번호를 입력하세요." />
+								</div>
+								<div class="3u 12u(mobilep)">
+									<input type="button" value="검색" id="search" class="button" style="margin-left:0px;margin-right:0px;width:90%" />
+								</div>
+								<br>
+								<div class="9u 12u(mobilep)">
+									<input type="text" name="phonenum" id="phonenum" style="margin-left:2%;width:50%" value="" placeholder="전화번호 입력시 문자알림" />
+								</div>
+								<div style="margin-left:10px" class="g-recaptcha" data-sitekey="6Lf9jS8UAAAAAHTywmuZX53V3Aez9FusbLBHSL6n"></div>
+							</div>
+						</form>
+						<span class="result_table">
+
+						</span>
+					</section>
+
+				</section>
+
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://github.com/gyuhyeon/2017NaverHackday" class="icon fa-github"><span class="label">Github</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Gyuhyeon Lee 2017, All rights reserved.</li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="/assets/js/jquery.min.js"></script>
+		<script src="/assets/js/jquery.dropotron.min.js"></script>
+		<script src="/assets/js/jquery.scrollgress.min.js"></script>
+		<script src="/assets/js/skel.min.js"></script>
+		<script src="/assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="/assets/js/main.js"></script>
+		<script src="/assets/js/delivery.js"></script>
+	</body>
+</html>

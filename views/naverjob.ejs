@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title><%=title%></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+	</head>
+	<body class="landing">
+		<div id="page-wrapper" style="background-color: rgb(202,200,200);">
+
+			<!-- Header -->
+				<header id="header" class="alt">
+					<h1><a href="/">Gyuhyeon Lee</a> Project showcase</h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li><a href="/delivery">DeliveryTracking</a></li>
+							<li><a href="/naverjob">NaverJobTracker</a></li>
+							<!--
+							<li>
+								<a href="#" class="icon fa-angle-down">Menu</a>
+								<ul>
+									<li><a href="/dashboard">dashboard</a></li>
+								</ul>
+							</li>
+							-->
+							<!-- <li><a href="/login" class="button">Sign In</a></li> -->
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Banner -->
+				<section id="banner" class="naverjob">
+					<h2>네이버 채용공고 알리미</h2>
+					<p></p>
+					
+				<!--
+					<ul class="actions">
+						<li><a href="#" class="button special">Sign In</a></li>
+						<li><a href="#" class="button">Learn More</a></li>
+					</ul>
+				-->
+				</section>
+
+			<!-- Main -->
+				<section id="main" class="container">
+
+					<section class="box special">
+						<div style="text-align: left">
+							<p>전화번호를 입력해주시면 자동 등록됩니다 :)
+							<br/>
+							성공적으로 등록 완료시 SMS로 확인문자가 전송됩니다.
+							<br/>
+							자체 서버에서 <a href="https://recruit.navercorp.com/naver/job/list/developer">네이버 개발자 채용공고</a>를 확인하고 변경사항을 문자로 보내드립니다.
+							</p>
+						</div>
+						<form id = "notification_enlist" name="notification_enlist" style="text-align: left">
+							<input type="text" name="phonenumber" placeholder="010-0000-0000" style="display:inline-block;width:50%">&nbsp;
+							<input type="button" id = "enlist" value="등록하기" style="display:inline-block;width:20%;padding-left: 0px;padding-right: 0px;">&nbsp;
+							<input type="button" id = "unsubscribe" value="삭제하기" style="display:inline-block;width:20%;padding-left: 0px;padding-right: 0px;">
+							<br>
+							<div class="g-recaptcha" style="margin-top:20px" data-sitekey="6Lf9jS8UAAAAAHTywmuZX53V3Aez9FusbLBHSL6n"></div>
+						</form>
+						<br/>
+						<div>
+							<p>Made with ♥ by Gyuhyeon Lee</p>
+						</div>
+					</section>
+
+				</section>
+
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://github.com/gyuhyeon/NaverRecruitNotifier" class="icon fa-github"><span class="label">Github</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Gyuhyeon Lee 2017, All rights reserved.</li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="/assets/js/jquery.min.js"></script>
+		<script src="/assets/js/jquery.dropotron.min.js"></script>
+		<script src="/assets/js/jquery.scrollgress.min.js"></script>
+		<script src="/assets/js/skel.min.js"></script>
+		<script src="/assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="/assets/js/main.js"></script>
+		<script src="/assets/js/naverjob.js"></script>
+	</body>
+</html>

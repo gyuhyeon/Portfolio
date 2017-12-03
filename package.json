@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-main-app",
+  "version": "0.0.1",
+  "description": "main server that showcases past projects along with self introduction",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cheerio": "^1.0.0-rc.2",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
+    "express": "^4.16.0",
+    "iconv-lite": "^0.4.19",
+    "morgan": "^1.7.0",
+    "mysql": "^2.10.2",
+    "package.json": "^2.0.1",
+    "path": "^0.12.7",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "twilio": "^3.6.5"
+  }
+}
