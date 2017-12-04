@@ -88,7 +88,8 @@ app.use(function(err, req, res, next) {
  */
 
 //var port = normalizePort(process.env.PORT || '3000');
-var port = 9000;
+const port = 9000;
+const ip = '172.31.5.224'; // private IP for the server to use with nginx
 app.set('port', port);
 
 /**
@@ -101,7 +102,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, ip); // ip is optional, only for using with nginx
 server.on('error', onError);
 server.on('listening', onListening);
 
