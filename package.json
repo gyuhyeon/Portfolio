@@ -16,5 +16,11 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "twilio": "^3.6.5"
+  },
+  "scripts": {
+    "test": "./node_modules/jshint/bin/jshint app.js"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.5"
   }
 }
