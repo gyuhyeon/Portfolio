@@ -47,7 +47,7 @@ app.use('/service', service); //service API for public usage
 
 
 packageNotifier(); // this server will now check for changes in package lists every 30 seconds
-naverRecruitNotifer();
+naverRecruitNotifer(); // this server will now check for changes in recruiting page elements
 
 
 // catch 404 and forward to error handler
