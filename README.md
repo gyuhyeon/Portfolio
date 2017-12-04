@@ -1,4 +1,5 @@
 # Portfolio website
+[![Build Status](https://travis-ci.org/gyuhyeon/Portfolio.svg?branch=master)](https://travis-ci.org/gyuhyeon/Portfolio)  
 This is a repository for my portfolio website.  
 I'm thinking about making a tutorial that covers everything from basic static html to setting up aws, node.js, mysql, along with nginx to server as a front proxy.  
 But for now, this is a consolidated project just to showcase my past works.
