@@ -46,27 +46,51 @@ app.listen(9000, 'private_ip_address');
 ```
 
 ## Node.js with HTTPS & Nginx
+- Install certification with certbot(let's encrypt)
 ```
+$ sudo apt-get update
+$ sudo apt-get install software-properties-common
+$ sudo add-apt-repository ppa:certbot/certbot
+$ sudo apt-get update
+$ sudo apt-get install python-certbot-nginx
+$ sudo certbot --nginx       # optional : certonly option will only generate keys and not fiddle with options, but not recommended.
+```
+- set automated renewals
+```
+$ sudo certbot renew --dry-run   # check if it works
+$ sudo crontab -e
+sudo certbot renew --quiet
+```
+- check nginx config  
+The file below will be automatically generated well if setting up HTTPS with Nginx was done AFTER configuring it well with HTTP and it was working(as guide above).  
+If not, the proxy_pass and etc may need to be tweaked.  
+```
+# /etc/nginx/sites-available/default
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name domain.example.com;
-    return 301 https://$server_name$request_uri;
-}
-server {
-   # SSL configuration
-   listen 443 ssl http2 default_server;
-   listen [::]:443 ssl http2 default_server;
-   include your_ssl_certificate;
+    listen 80;
+    server_name gyuhyeonlee.com;
     location / {
-        proxy_set_header X-Forwarded-Proto https;
-        proxy_pass http://private_ip:port;
+        proxy_set_header X-Forwarded-Proto https; # important. this lets the node server know that it's actually secure.
+        proxy_pass http://172.31.5.224:9000; # change 9000 to whatever port
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
-   }
+     }
+
+    listen 443 ssl; # managed by Certbot
+ssl_certificate /etc/letsencrypt/live/gyuhyeonlee.com/fullchain.pem; # managed by Certbot
+ssl_certificate_key /etc/letsencrypt/live/gyuhyeonlee.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
+
+    if ($scheme != "https") {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
 }
 ```
 
