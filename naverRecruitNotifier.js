@@ -137,7 +137,7 @@ function naverRecruitNotifier() {
                         for(var i = 0; i < jsondata.length; ++i) {
                             if(prevjoblist.indexOf(position_type + jsondata[i].jobNm)==-1){
                                 joblist.push(jsondata[i].jobNm);
-                                insertdata.append(position_type + jsondata[i].jobNm);
+                                insertdata.push(position_type + jsondata[i].jobNm);
                             }
                         }
                         if(insertdata.length>0) {
