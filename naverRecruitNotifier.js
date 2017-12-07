@@ -150,7 +150,7 @@ function naverRecruitNotifier() {
                             }
                             sendNotification(position_type.slice(0,2)+" 공고가 업데이트 되었습니다: "+text+" / 구독취소:gyuhyeonlee.com");
                             // LINE bot push messages
-                            connection.query('SELECT FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', function(error, cursor) {
+                            connection.query('SELECT * FROM `NaverJobs`.`LineFriends`;', function(error, cursor) {
                                 if(error==null){
                                     for (let i = 0; i < cursor.length; ++i) {
                                         let options = {
