@@ -110,8 +110,8 @@ router.post('/unsubscribe', function(req, res, next) {
 
 // line webhook for receiving sub&unsub events.
 router.post('/lineevents', function(req, res, next) {
-    insertvalues = [];
-    removevalues = [];
+    let insertvalues = [];
+    let removevalues = [];
     if(req.body.events!==null && req.body.events!==undefined){
         for (let i = 0; i< req.body.events.length; ++i) {
             if (req.body.events[i].type == 'follow') {
