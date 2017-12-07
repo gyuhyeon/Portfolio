@@ -113,7 +113,7 @@ router.post('/lineevents', function(req, res, next) {
     let insertvalues = [];
     let removevalues = [];
     if(req.body.events!==null && req.body.events!==undefined){
-        for (let i = 0; i< req.body.events.length; ++i) {
+        for (let i = 0; i < req.body.events.length; ++i) {
             if (req.body.events[i].type == 'follow') {
                 insertvalues.append(req.body.events[i].source.userId);
             }
@@ -124,20 +124,29 @@ router.post('/lineevents', function(req, res, next) {
         if (insertvalues.length > 0) {
             // don't really care about data consistency. All we need make sure is that removing takes priority over adding.
             connection.query('INSERT INTO `NaverJobs`.`LineFriends`(id) VALUES (?);', insertvalues, function(error, cursor){
-                let options = {
-                    method: "POST",
-                    uri: "https://api.line.me/v2/bot/message/multicast",
-                    headers: {
-                        'Content-Type':'application/json',
-                        'Authorization':'Bearer {'+config.linetoken+'}'
-                    },
-                    body: {
-                        messages: [{"type":"text", "text": "구독 신청 감사합니다! 변경사항이 있을 경우 바로 알려드릴게요 :)"}]
-                    }
-                };
-                rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
+                if(error == null){
+                    let options = {
+                        method: "POST",
+                        uri: "https://api.line.me/v2/bot/message/multicast",
+                        headers: {
+                            'Content-Type':'application/json',
+                            'Authorization':'Bearer {'+config.linetoken+'}'
+                        },
+                        body: {
+                            messages: [{"type":"text", "text": "구독 신청 감사합니다! 변경사항이 있을 경우 바로 알려드릴게요 :)"}]
+                        }
+                    };
+                    rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
+                }
+                else{
+                    console.log("DB error : "+error);
+                }
                 if (removevalues.length > 0) {
-                    connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues);
+                    connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues, function(error){
+                        if(error != null){
+                            console.log("DB error : "+error);
+                        }
+                    });
                 }
             });
         }
