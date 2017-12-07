@@ -115,10 +115,10 @@ router.post('/lineevents', function(req, res, next) {
     if(req.body.events!==null && req.body.events!==undefined){
         for (let i = 0; i < req.body.events.length; ++i) {
             if (req.body.events[i].type == 'follow') {
-                insertvalues.append(req.body.events[i].source.userId);
+                insertvalues.push(req.body.events[i].source.userId);
             }
             else if(req.body.events[i].type == 'unfollow') {
-                removevalues.append(req.body.events[i].source.userId);
+                removevalues.push(req.body.events[i].source.userId);
             }
         }
         if (insertvalues.length > 0) {
