@@ -123,7 +123,7 @@ router.post('/lineevents', function(req, res, next) {
         }
         if (insertvalues.length > 0) {
             // don't really care about data consistency. All we need make sure is that removing takes priority over adding.
-            connection.query('INSERT INTO `NaverJobs`.`LineFriends` WHERE `id`=?;', insertvalues, function(error, cursor){
+            connection.query('INSERT INTO `NaverJobs`.`LineFriends`(id) VALUES (?);', insertvalues, function(error, cursor){
                 let options = {
                     method: "POST",
                     uri: "https://api.line.me/v2/bot/message/multicast",
