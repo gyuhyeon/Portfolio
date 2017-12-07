@@ -136,6 +136,7 @@ router.post('/lineevents', function(req, res, next) {
         rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
         connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues);
     });
+    res.set('Content-Type', 'text/plain');
     res.send("Thanks LINE!");
 });
 
