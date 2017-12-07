@@ -32,6 +32,8 @@ app.set('view engine', 'ejs');
 // middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
+// in order to use rich objects, extended needs to be set to true. Research into qs library before using.
+// for example, 2D arrays or images can't be sent when extended is set as false.
 app.use(bodyParser.urlencoded({ extended: false})); // extended false => querystring : false, qs library : true
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //the folder "public" should have the resources ejs templates will be using(js, css..)

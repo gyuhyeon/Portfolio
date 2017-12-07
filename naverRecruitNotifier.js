@@ -1,5 +1,6 @@
 
 const request = require('request');
+const rp = require('request-promise'); // TODO : change request to request-promise
 // Twilio SMS, MySQL, config
 const twilio = require('twilio');
 const mysql = require('mysql');
@@ -129,21 +130,45 @@ function naverRecruitNotifier() {
                     })(prevjoblist);//IIFE to pass prevjoblist from query to a request callback to check for prev states
                     //BTW, IIFE is actually not needed for accessing global scopes in this manner...
                     */
-                    request.post({url:url}, function(error, response, body){
-                        var jsondata = JSON.parse(body); //FIXME : jsondata will be corrupt if Naver fails to respond accordingly(seems to happen around 5AM, which is probably causing the crash).
-                        var joblist = [];
-                        for(var i=0; i<jsondata.length; ++i){
+                    request.post({url:url}, function(error, response, body) {
+                        let jsondata = JSON.parse(body); //FIXME : jsondata will be corrupt if Naver fails to respond accordingly(seems to happen around 5AM, which is probably causing the crash).
+                        let joblist = [];
+                        let insertdata = []; // array to insert into db(new jobs)
+                        for(var i = 0; i < jsondata.length; ++i) {
                             if(prevjoblist.indexOf(position_type + jsondata[i].jobNm)==-1){
                                 joblist.push(jsondata[i].jobNm);
-                                connection.query('INSERT INTO `NaverJobs`(jobTitle) VALUES (?);',[position_type + jsondata[i].jobNm]);
+                                insertdata.append(position_type + jsondata[i].jobNm);
                             }
                         }
-                        if(joblist.length>0){
+                        if(insertdata.length>0) {
+                            connection.query('INSERT INTO `NaverJobs`(jobTitle) VALUES (?);',insertdata);
+                        }
+                        if(joblist.length>0) {
                             var text=joblist[0];
-                            if(joblist.length>1){
+                            if(joblist.length>1) {
                                 text+=" 외 "+(joblist.length-1)+"건";
                             }
                             sendNotification(position_type.slice(0,2)+" 공고가 업데이트 되었습니다: "+text+" / 구독취소:gyuhyeonlee.com");
+                            // LINE bot push messages
+                            connection.query('SELECT FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', function(error, cursor) {
+                                if(error==null){
+                                    for (let i = 0; i < cursor.length; ++i) {
+                                        let options = {
+                                            method: "POST",
+                                            uri: "https://api.line.me/v2/bot/message/multicast",
+                                            headers: {
+                                                'Content-Type':'application/json',
+                                                'Authorization':'Bearer {'+config.linetoken+'}'
+                                            },
+                                            body: {
+                                                to : [cursor[i].id],
+                                                messages: [{"type":"text", "text": position_type.slice(0,2)+" 공고가 업데이트 되었습니다: "+text}]
+                                            }
+                                        };
+                                        rp(options);
+                                    }
+                                }
+                            });
                         }
                     });
                     
