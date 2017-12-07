@@ -1,5 +1,3 @@
-import { removeAllListeners } from 'cluster';
-
 const express = require('express');
 const router = express.Router();
 
