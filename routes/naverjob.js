@@ -110,32 +110,34 @@ router.post('/unsubscribe', function(req, res, next) {
 
 // line webhook for receiving sub&unsub events.
 router.post('/lineevents', function(req, res, next) {
-    insertvalues = []
-    removevalues = []
-    for (let i = 0; i< req.body.events.length; ++i) {
-        if (req.body.events[i].type == 'follow') {
-            insertvalues.append(req.body.events[i].source.userId);
-        }
-        else if(req.body.events[i].type == 'unfollow') {
-            removevalues.append(req.body.events[i].source.userId);
-        }
-    }
-    // don't really care about data consistency. All we need make sure is that removing takes priority over adding.
-    connection.query('INSERT INTO `NaverJobs`.`LineFriends` WHERE `id`=?;', insertvalues, function(error, cursor){
-        let options = {
-            method: "POST",
-            uri: "https://api.line.me/v2/bot/message/multicast",
-            headers: {
-                'Content-Type':'application/json',
-                'Authorization':'Bearer {'+config.linetoken+'}'
-            },
-            body: {
-                messages: [{"type":"text", "text": "구독 신청 감사합니다! 변경사항이 있을 경우 바로 알려드릴게요 :)"}]
+    insertvalues = [];
+    removevalues = [];
+    if(req.body.events!==null && req.body.events!==undefined){
+        for (let i = 0; i< req.body.events.length; ++i) {
+            if (req.body.events[i].type == 'follow') {
+                insertvalues.append(req.body.events[i].source.userId);
             }
-        };
-        rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
-        connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues);
-    });
+            else if(req.body.events[i].type == 'unfollow') {
+                removevalues.append(req.body.events[i].source.userId);
+            }
+        }
+        // don't really care about data consistency. All we need make sure is that removing takes priority over adding.
+        connection.query('INSERT INTO `NaverJobs`.`LineFriends` WHERE `id`=?;', insertvalues, function(error, cursor){
+            let options = {
+                method: "POST",
+                uri: "https://api.line.me/v2/bot/message/multicast",
+                headers: {
+                    'Content-Type':'application/json',
+                    'Authorization':'Bearer {'+config.linetoken+'}'
+                },
+                body: {
+                    messages: [{"type":"text", "text": "구독 신청 감사합니다! 변경사항이 있을 경우 바로 알려드릴게요 :)"}]
+                }
+            };
+            rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
+            connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues);
+        });
+    }
     res.set('Content-Type', 'text/plain');
     res.send("Thanks LINE!");
 });
