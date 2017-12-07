@@ -133,20 +133,24 @@ router.post('/lineevents', function(req, res, next) {
                             'Authorization':'Bearer {'+config.linetoken+'}'
                         },
                         body: {
+                            to: insertvalues,
                             messages: [{"type":"text", "text": "구독 신청 감사합니다! 변경사항이 있을 경우 바로 알려드릴게요 :)"}]
-                        }
+                        },
+                        json: true // this encodes our body as json when SENDING POST request.
+                        // in GET requests, this means it will encode RESPONSE in json when we RECEIVE IT.
+                        // pretty confusing...
                     };
-                    rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
+                    rp(options).catch((e) => console.log(e)); // one way request, don't really need .then() promises. Send greetings to new users.
                 }
                 else{
                     console.log("DB error : "+error);
                 }
-                if (removevalues.length > 0) {
-                    connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues, function(error){
-                        if(error != null){
-                            console.log("DB error : "+error);
-                        }
-                    });
+            });
+        }
+        if (removevalues.length > 0) {
+            connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues, function(error){
+                if(error != null){
+                    console.log("DB error : "+error);
                 }
             });
         }

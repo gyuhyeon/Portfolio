@@ -163,7 +163,8 @@ function naverRecruitNotifier() {
                                             body: {
                                                 to : [cursor[i].id],
                                                 messages: [{"type":"text", "text": position_type.slice(0,2)+" 공고가 업데이트 되었습니다: "+text}]
-                                            }
+                                            },
+                                            json: true
                                         };
                                         rp(options);
                                     }
