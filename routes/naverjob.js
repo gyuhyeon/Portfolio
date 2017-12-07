@@ -121,22 +121,26 @@ router.post('/lineevents', function(req, res, next) {
                 removevalues.append(req.body.events[i].source.userId);
             }
         }
-        // don't really care about data consistency. All we need make sure is that removing takes priority over adding.
-        connection.query('INSERT INTO `NaverJobs`.`LineFriends` WHERE `id`=?;', insertvalues, function(error, cursor){
-            let options = {
-                method: "POST",
-                uri: "https://api.line.me/v2/bot/message/multicast",
-                headers: {
-                    'Content-Type':'application/json',
-                    'Authorization':'Bearer {'+config.linetoken+'}'
-                },
-                body: {
-                    messages: [{"type":"text", "text": "구독 신청 감사합니다! 변경사항이 있을 경우 바로 알려드릴게요 :)"}]
+        if (insertvalues.length > 0) {
+            // don't really care about data consistency. All we need make sure is that removing takes priority over adding.
+            connection.query('INSERT INTO `NaverJobs`.`LineFriends` WHERE `id`=?;', insertvalues, function(error, cursor){
+                let options = {
+                    method: "POST",
+                    uri: "https://api.line.me/v2/bot/message/multicast",
+                    headers: {
+                        'Content-Type':'application/json',
+                        'Authorization':'Bearer {'+config.linetoken+'}'
+                    },
+                    body: {
+                        messages: [{"type":"text", "text": "구독 신청 감사합니다! 변경사항이 있을 경우 바로 알려드릴게요 :)"}]
+                    }
+                };
+                rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
+                if (removevalues.length > 0) {
+                    connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues);
                 }
-            };
-            rp(options); // one way request, don't really need .then() promises. Send greetings to new users.
-            connection.query('DELETE FROM `NaverJobs`.`LineFriends` WHERE `id`=?;', removevalues);
-        });
+            });
+        }
     }
     res.set('Content-Type', 'text/plain');
     res.send("Thanks LINE!");
