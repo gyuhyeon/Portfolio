@@ -14,9 +14,9 @@ node app.js
 
 # Simple documentation for future reference
 
-- [Node.js with Nginx](#Node.js-with-Nginx)
-- [Node.js with HTTPS & Nginx](#Node.js-with-HTTPS-&-Nginx)
-- [Note on HTTP codes...](#Note-on-HTTP-codes...)
+- [Node.js with Nginx](#nodejs-with-nginx)
+- [Node.js with HTTPS and Nginx](#nodejs-with-https-and-nginx)
+- [Note on HTTP codes...](#note-on-http-codes)
 
 ## Node.js with Nginx
 Node.js can act as a standalone web server, but it's more stable/robust if nginx is used as a proxy server and node.js receives requests through nginx.  
@@ -63,7 +63,7 @@ $ sudo /etc/init.d/nginx reload   # reload if config was OK
 app.listen(9000, 'private_ip_address');
 ```
 
-## Node.js with HTTPS & Nginx
+## Node.js with HTTPS and Nginx
 - Install certification with certbot(let's encrypt)
 ```
 $ sudo apt-get update
