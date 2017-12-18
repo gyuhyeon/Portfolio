@@ -8,13 +8,7 @@ const cookieParser = require('cookie-parser');
 
 
 // Routing
-const index = require('./routes/index');
-const delivery = require('./routes/delivery');
-const naverjob = require('./routes/naverjob');
-
-// Routing for internal logic
-const query = require('./routes/query');
-const service = require('./routes/service');
+const index = require('./controllers/index');
 
 
 // Imports(modulized)
@@ -38,14 +32,9 @@ app.use(bodyParser.urlencoded({ extended: false})); // extended false => queryst
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //the folder "public" should have the resources ejs templates will be using(js, css..)
 
-// website routing(requests)
-app.use('/', index); // show main page (self intro)
-app.use('/delivery', delivery);
-app.use('/naverjob', naverjob);
 
-// routing for internal logic
-app.use('/query', query); // query API for internal usage
-app.use('/service', service); //service API for public usage
+// website routing(requests)
+app.use('/', index); // get all routes
 
 
 packageNotifier(); // this server will now check for changes in package lists every 30 seconds
