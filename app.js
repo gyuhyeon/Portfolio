@@ -12,8 +12,7 @@ const index = require('./controllers/index');
 
 
 // Imports(modulized)
-const packageNotifier = require('./packageNotifier');
-const naverRecruitNotifer = require('./naverRecruitNotifier');
+
 
 // instantiate express
 const app = express();
@@ -36,9 +35,6 @@ app.use(express.static(path.join(__dirname, 'public'))); //the folder "public" s
 // website routing(requests)
 app.use('/', index); // get all routes
 
-
-packageNotifier(); // this server will now check for changes in package lists every 30 seconds
-naverRecruitNotifer(); // this server will now check for changes in recruiting page elements
 
 
 // catch 404 and forward to error handler
