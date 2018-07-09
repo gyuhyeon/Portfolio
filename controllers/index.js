@@ -4,12 +4,10 @@ const router = express.Router();
 
 
 // Web routing
-const delivery = require('./delivery');
-const naverjob = require('./naverjob');
+//const delivery = require('./delivery');
 
 // Routing for internal logic
-const query = require('./query');
-const service = require('./service');
+//const query = require('./query');
 
 
 
@@ -28,12 +26,10 @@ router.get('/index.html', function(req, res, next) {
 
 /* Other routes */
 // Web routing
-router.use('/delivery', delivery);
-router.use('/naverjob', naverjob);
+//router.use('/delivery', delivery);
 
 // Routing for internal logic
-router.use('/query', query); // query API for internal usage
-router.use('/service', service); //service API for public usage
+//router.use('/query', query); // query API for internal usage
 
 
 
